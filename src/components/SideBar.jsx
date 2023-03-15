@@ -15,44 +15,43 @@ const SideBar = () => {
         <ul className="space-y-4">
           <li>
             <button onClick={(e) => setType("")}>
-              <a href="/jobs" className="main-menu menu-active lws-allJob">
+              <Link to={"/jobs"} className="main-menu menu-active lws-allJob">
                 <i className="fa-solid fa-briefcase"></i> All Available Jobs
                 <span></span>
-              </a>
+              </Link>
             </button>
             <ul className="space-y-6 lg:space-y-2 ">
               <li>
-                <p className="sub-menu">
-                  <i className="fa-solid fa-stop !text-[#FF5757]"></i>
-                  <button onClick={(e) => setType("Internship")}>
+                <button onClick={(e) => setType("Internship")}>
+                  <Link to={"/jobs"} className="sub-menu">
+                    <i className="fa-solid fa-stop !text-[#FF5757]"></i>
                     Internship
-                  </button>
-                </p>
+                  </Link>
+                </button>
               </li>
               <li>
-                <p className="sub-menu">
-                  <i className="fa-solid fa-stop !text-[#FF8A00]"></i>
-                  <button
-                    onClick={(e) => {
-                      setType("Full Time");
-                    }}
-                  >
-                    {" "}
-                    Full Time
-                  </button>
-                </p>
+                <button
+                  onClick={(e) => {
+                    setType("Full Time");
+                  }}
+                >
+                  <Link to={"/jobs"} className="sub-menu">
+                    <i className="fa-solid fa-stop !text-[#FF8A00]"></i> Full
+                    Time
+                  </Link>
+                </button>
               </li>
               <li>
-                <p className="sub-menu">
-                  <i className="fa-solid fa-stop !text-[#56E5C4]"></i>
-                  <button
-                    onClick={(e) => {
-                      setType("Remote");
-                    }}
-                  >
+                <button
+                  onClick={(e) => {
+                    setType("Remote");
+                  }}
+                >
+                  <Link to={"/jobs"} className="sub-menu">
+                    <i className="fa-solid fa-stop !text-[#56E5C4]"></i>
                     Remote
-                  </button>
-                </p>
+                  </Link>
+                </button>
               </li>
             </ul>
           </li>
