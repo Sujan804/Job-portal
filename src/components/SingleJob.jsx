@@ -13,13 +13,21 @@ const SingleJob = ({ job }) => {
   const handleDelete = () => {
     dispatch(removeJob(job.id));
   };
+  let color = null;
+  if (job.type === "Internship") {
+    color = "!text-[#FF5757]";
+  } else if (job.type === "Remote") {
+    color = "!text-[#56E5C4]";
+  } else {
+    color = "!text-[#FF8A00]";
+  }
   return (
     <div className="job">
       <div className="flex-1 min-w-0">
         <h2 className="lws-title">{job.title}</h2>
         <div className="job-footers">
           <div className="lws-type">
-            <i className="fa-solid fa-stop !text-[#FF8A00] text-lg mr-1.5"></i>
+            <i className={`fa-solid fa-stop ${color} text-lg mr-1.5`}></i>
             {job.type}
           </div>
           <div className="lws-salary">

@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchKey, setSortType } from "../features/filter/filterSlice";
 import JobList from "./JobList";
 
 const HomePage = () => {
+  const [key, setKey] = useState("");
+  const [sort, setSort] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(key, sort);
+    dispatch(setSearchKey(key));
+    dispatch(setSortType(sort));
+  }, [key, sort, dispatch]);
   return (
     <div className="lg:pl-[14rem]  mt-[5.8125rem]">
       <main className="max-w-3xl rounded-lg  mx-auto relative z-20 p-10 xl:max-w-none bg-[#1E293B]">
@@ -15,12 +26,20 @@ const HomePage = () => {
                 placeholder="Search Job"
                 className="search-input"
                 id="lws-searchJob"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
               />
             </div>
-            <select id="lws-sort" name="sort" className="flex-1">
-              <option>Default</option>
-              <option>Salary (Low to High)</option>
-              <option>Salary (High to Low)</option>
+            <select
+              id="lws-sort"
+              name="sort"
+              className="flex-1"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value={"Def"}>Default</option>
+              <option value={"Asc"}>Salary (Low to High)</option>
+              <option value={"Dsc"}>Salary (High to Low)</option>
             </select>
           </div>
         </div>

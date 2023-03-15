@@ -1,33 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setJobType } from "../features/filter/filterSlice";
 const SideBar = () => {
+  const [type, setType] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(type);
+    dispatch(setJobType(type));
+  }, [type, dispatch]);
   return (
     <div className="sidebar">
       <nav>
         <ul className="space-y-4">
           <li>
-            <a href="/jobs" className="main-menu menu-active lws-allJob">
-              <i className="fa-solid fa-briefcase"></i>
-              <span> All Available Jobs</span>
-            </a>
+            <button onClick={(e) => setType("")}>
+              <a href="/jobs" className="main-menu menu-active lws-allJob">
+                <i className="fa-solid fa-briefcase"></i> All Available Jobs
+                <span></span>
+              </a>
+            </button>
             <ul className="space-y-6 lg:space-y-2 ">
               <li>
-                <a className="sub-menu" href="/jobs/internship">
+                <p className="sub-menu">
                   <i className="fa-solid fa-stop !text-[#FF5757]"></i>
-                  Internship
-                </a>
+                  <button onClick={(e) => setType("Internship")}>
+                    Internship
+                  </button>
+                </p>
               </li>
               <li>
-                <a className="sub-menu" href="/jobs/fulltime">
+                <p className="sub-menu">
                   <i className="fa-solid fa-stop !text-[#FF8A00]"></i>
-                  Full Time
-                </a>
+                  <button
+                    onClick={(e) => {
+                      setType("Full Time");
+                    }}
+                  >
+                    {" "}
+                    Full Time
+                  </button>
+                </p>
               </li>
               <li>
-                <a className="sub-menu" href="/jobs/remote">
+                <p className="sub-menu">
                   <i className="fa-solid fa-stop !text-[#56E5C4]"></i>
-                  Remote
-                </a>
+                  <button
+                    onClick={(e) => {
+                      setType("Remote");
+                    }}
+                  >
+                    Remote
+                  </button>
+                </p>
               </li>
             </ul>
           </li>

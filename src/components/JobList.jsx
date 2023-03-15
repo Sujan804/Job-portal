@@ -7,10 +7,12 @@ const JobList = () => {
   const { jobs, isLoading, isError, error } = useSelector(
     (state) => state.jobs
   );
+  const { searchKey, jobType, sortType } = useSelector((state) => state.filter);
   useEffect(() => {
     dispatch(fetchJobs());
-  }, [dispatch]);
+  }, []);
   let content = null;
+  console.log(searchKey, jobType, sortType);
   if (isLoading) {
     content = <h1 style={{ color: "white" }}>loading...</h1>;
   }
@@ -20,7 +22,28 @@ const JobList = () => {
     );
   }
   if (!isLoading && !isError && jobs?.length > 0) {
-    content = jobs.map((job) => <SingleJob key={job.id} job={job} />);
+    const filteredJob = jobs
+      .filter((job) => {
+        if (jobType === "") {
+          return true;
+        }
+        return jobType === job.type;
+      })
+      .filter((job) => {
+        const jobTitle = job.title.toLowerCase();
+        const index = jobTitle.indexOf(searchKey.toLowerCase());
+        if (index > -1) {
+          return true;
+        }
+        return false;
+      });
+    if (sortType === "Asc") {
+      filteredJob.sort((a, b) => a.salary - b.salary);
+    } else if (sortType === "Dsc") {
+      filteredJob.sort((a, b) => b.salary - a.salary);
+    }
+
+    content = filteredJob.map((job) => <SingleJob key={job.id} job={job} />);
   }
   return <div className="jobs-list ">{content}</div>;
 };
